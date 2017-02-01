@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Social
 
 class FilterEditViewController: UIViewController {
     

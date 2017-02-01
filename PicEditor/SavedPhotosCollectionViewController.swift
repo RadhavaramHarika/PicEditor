@@ -131,7 +131,6 @@ class SavedPhotosCollectionViewController: UICollectionViewController,NSFetchedR
         }
         let selectedImage = UIImage(data: savedPhoto.imageData as! Data)
         openPictureDetailVC(selectedImage: selectedImage!)
-//        self.showAlertWithAction(withSelectedImage: selectedImage!)
         
     }
     
@@ -256,20 +255,6 @@ class SavedPhotosCollectionViewController: UICollectionViewController,NSFetchedR
 }
 
 extension SavedPhotosCollectionViewController: PictureDetailViewControllerDelegate{
-    
-//    func showAlertWithAction(withSelectedImage: UIImage){
-//        DispatchQueue.main.async {
-//            let alert = UIAlertController(title:"Pic Editor", message: "Do you want to delete this cell?", preferredStyle: UIAlertControllerStyle.alert)
-//            alert.addAction(UIAlertAction(title: "Cancel", style:.cancel, handler: {(action: UIAlertAction!) in
-//                self.openPictureDetailVC(selectedImage: withSelectedImage)
-//            }))
-//            alert.addAction(UIAlertAction(title: "OK", style:.default, handler:{(action: UIAlertAction!) in
-//                self.deleteSelectedImages()
-//                
-//            }))
-//            self.present(alert, animated: true, completion: nil)
-//        }
-//    }
     
     func deleteInPictureDetailVCPressed(){
         deleteSelectedImages()

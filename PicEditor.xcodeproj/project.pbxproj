@@ -33,6 +33,7 @@
 		E7398FCA1E3EFAEA00E64B6A /* SavedPicture+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7398FC81E3EFAEA00E64B6A /* SavedPicture+CoreDataClass.swift */; };
 		E7398FCB1E3EFAEA00E64B6A /* SavedPicture+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7398FC91E3EFAEA00E64B6A /* SavedPicture+CoreDataProperties.swift */; };
 		E7398FCF1E3F61F700E64B6A /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = E7398FCE1E3F61F700E64B6A /* Readme.md */; };
+		E7E8B1961E417BBB0092243A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E8B1951E417BBB0092243A /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		E7398FC81E3EFAEA00E64B6A /* SavedPicture+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SavedPicture+CoreDataClass.swift"; path = "../SavedPicture+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E7398FC91E3EFAEA00E64B6A /* SavedPicture+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SavedPicture+CoreDataProperties.swift"; path = "../SavedPicture+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E7398FCE1E3F61F700E64B6A /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
+		E7E8B1951E417BBB0092243A /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7E8B1961E417BBB0092243A /* Social.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,6 +123,7 @@
 				E7398F861E3EE74E00E64B6A /* PicEditorTests */,
 				E7398F911E3EE74E00E64B6A /* PicEditorUITests */,
 				E7398F701E3EE74E00E64B6A /* Products */,
+				E7E8B1941E417BBB0092243A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -139,14 +143,7 @@
 				E7398F721E3EE74E00E64B6A /* AppDelegate.swift */,
 				E7398FC41E3EFA4700E64B6A /* View */,
 				E7398FB41E3EE96100E64B6A /* Modal */,
-				E7398FA01E3EE7DA00E64B6A /* MainViewController.swift */,
-				E7398FA21E3EE7F000E64B6A /* PickImageViewController.swift */,
-				E7398FA41E3EE85700E64B6A /* FilterEditViewController.swift */,
-				E7398FA61E3EE86600E64B6A /* DrawEditViewController.swift */,
-				E7398FA81E3EE87600E64B6A /* TextEditViewController.swift */,
-				E7398FAA1E3EE89E00E64B6A /* SelectPictureCollectionViewController.swift */,
-				E7398FBD1E3EF3C800E64B6A /* SavedPhotosCollectionViewController.swift */,
-				E7398FBF1E3EF40700E64B6A /* PictureDetailViewController.swift */,
+				E7E8B1971E417BDA0092243A /* Controllers */,
 				E7398F761E3EE74E00E64B6A /* Main.storyboard */,
 				E7398F791E3EE74E00E64B6A /* Assets.xcassets */,
 				E7398F7B1E3EE74E00E64B6A /* LaunchScreen.storyboard */,
@@ -176,9 +173,7 @@
 		E7398FB41E3EE96100E64B6A /* Modal */ = {
 			isa = PBXGroup;
 			children = (
-				E7398FAE1E3EE8D700E64B6A /* Constants.swift */,
-				E7398FB01E3EE8EF00E64B6A /* FlickrConvenience.swift */,
-				E7398FB21E3EE90300E64B6A /* Flickr.swift */,
+				E7E8B1981E417BFA0092243A /* Flickr */,
 				E7398FC51E3EFA5000E64B6A /* DataModel */,
 			);
 			name = Modal;
@@ -204,6 +199,39 @@
 				E7398FC91E3EFAEA00E64B6A /* SavedPicture+CoreDataProperties.swift */,
 			);
 			name = DataModel;
+			sourceTree = "<group>";
+		};
+		E7E8B1941E417BBB0092243A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E7E8B1951E417BBB0092243A /* Social.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E7E8B1971E417BDA0092243A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E7398FA01E3EE7DA00E64B6A /* MainViewController.swift */,
+				E7398FA21E3EE7F000E64B6A /* PickImageViewController.swift */,
+				E7398FA41E3EE85700E64B6A /* FilterEditViewController.swift */,
+				E7398FA61E3EE86600E64B6A /* DrawEditViewController.swift */,
+				E7398FA81E3EE87600E64B6A /* TextEditViewController.swift */,
+				E7398FAA1E3EE89E00E64B6A /* SelectPictureCollectionViewController.swift */,
+				E7398FBD1E3EF3C800E64B6A /* SavedPhotosCollectionViewController.swift */,
+				E7398FBF1E3EF40700E64B6A /* PictureDetailViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		E7E8B1981E417BFA0092243A /* Flickr */ = {
+			isa = PBXGroup;
+			children = (
+				E7398FAE1E3EE8D700E64B6A /* Constants.swift */,
+				E7398FB01E3EE8EF00E64B6A /* FlickrConvenience.swift */,
+				E7398FB21E3EE90300E64B6A /* Flickr.swift */,
+			);
+			name = Flickr;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
