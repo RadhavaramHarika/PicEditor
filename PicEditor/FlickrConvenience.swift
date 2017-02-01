@@ -46,6 +46,7 @@ public func getPhotosWithPages(text: String, getPhotosWithPagescompletionHandler
             }
             print(totalPages)
             let pageLimit = min(totalPages, 10)
+            
             var randomPage = Int(arc4random_uniform(UInt32(pageLimit))) + 1
             print(randomPage)
             if randomPage == 0{
@@ -96,7 +97,7 @@ func getPhotosWithPageNumber(_ methodParameters: [String:AnyObject],getPhotosWit
                 
                 if photosArray.count == 0{
                     print("No photo is found,Search Again")
-                    getPhotosWithPageNumberCompletionHandler(false,NSError(domain: "getPhotosWithPageNumber",code: 1,userInfo:[NSLocalizedDescriptionKey:"No photo is found,Search Again!"]))
+                    getPhotosWithPageNumberCompletionHandler(false,NSError(domain: "getPhotosWithPageNumber",code: 1,userInfo:[NSLocalizedDescriptionKey:"No photo is found, Search Again!"]))
                     
                     return
                 }

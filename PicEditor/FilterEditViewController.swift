@@ -33,7 +33,7 @@ class FilterEditViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isHidden = false
         self.view.bringSubview(toFront: titleLabel)
         imageToEdit.image = selectedImage
         filtersScrollView.isScrollEnabled = true
@@ -45,7 +45,7 @@ class FilterEditViewController: UIViewController {
     func setNavigationBar(){
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.hidesBackButton = false
-        let share = UIBarButtonItem(title: "share", style: UIBarButtonItemStyle.plain, target: self, action: #selector(shareAction))
+        let share = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareAction))
         let save = UIBarButtonItem(title: "save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(saveAction))
         navigationItem.rightBarButtonItems = [save,share]
     }

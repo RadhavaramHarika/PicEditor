@@ -46,10 +46,9 @@ class DrawEditViewController: UIViewController {
     }
     
     func setNavigationBar(){
-        self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.hidesBackButton = false
-        let share = UIBarButtonItem(title: "share", style: UIBarButtonItemStyle.plain, target: self, action: #selector(shareAction))
-        
+        navigationController?.navigationBar.isHidden = false
+        navigationItem.hidesBackButton = false
+        let share = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareAction))
         let save = UIBarButtonItem(title: "save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(saveAction))
         navigationItem.rightBarButtonItems = [save,share]
     }

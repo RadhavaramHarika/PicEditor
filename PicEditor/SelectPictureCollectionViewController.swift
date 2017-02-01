@@ -22,18 +22,15 @@ class SelectPictureCollectionViewController: UIViewController,UICollectionViewDe
     @IBOutlet weak var SelectCollectionViewLayout: UICollectionViewFlowLayout!
     
     @IBOutlet weak var MorePicsButtons: UIButton!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isHidden = false
         SelectCollectionView.delegate = self
         SelectCollectionView.dataSource = self
         self.navigationController?.navigationBar.isHidden = false
+        loadingIndicator.isHidden = true
         navigationItem.hidesBackButton = false
         setCollectionFlowLayout()
     }
@@ -54,6 +51,9 @@ class SelectPictureCollectionViewController: UIViewController,UICollectionViewDe
     
     @IBAction func moresPicturesPressed(_ sender: Any) {
     
+        loadingIndicator.isHidden = false
+        loadingIndicator.startAnimating()
+        view.bringSubview(toFront: loadingIndicator)
         let delegate = UIApplication.shared.delegate as! AppDelegate
         delegate.imageURLs.removeAll()
         
@@ -62,12 +62,18 @@ class SelectPictureCollectionViewController: UIViewController,UICollectionViewDe
                 
                 if error == nil{
                     DispatchQueue.main.async {
+                        self.loadingIndicator.isHidden = false
+                        self.loadingIndicator.stopAnimating()
+                        self.view.sendSubview(toBack: self.loadingIndicator)
                         self.SelectCollectionView.reloadData()
                     }
                 }
                 else{
                     DispatchQueue.main.async {
                         //showalert
+                        self.loadingIndicator.isHidden = false
+                        self.loadingIndicator.stopAnimating()
+                        self.view.sendSubview(toBack: self.loadingIndicator)
                         self.alert.displayAlertView(viewController: self, alertTitle: "Pic Editor", alertMessage: (error?.localizedDescription)!)
                         
                     }
@@ -76,6 +82,10 @@ class SelectPictureCollectionViewController: UIViewController,UICollectionViewDe
         }else{
             DispatchQueue.main.async {
                 //ShowAlert
+                self.loadingIndicator.isHidden = false
+                self.loadingIndicator.stopAnimating()
+                self.view.sendSubview(toBack: self.loadingIndicator)
+                self.alert.displayAlertView(viewController: self, alertTitle:"No Network", alertMessage: "Make sur your device is connected to network")
             }
         }
     }
@@ -136,10 +146,6 @@ class SelectPictureCollectionViewController: UIViewController,UICollectionViewDe
     }
     
     //ColecctionView Delegate and datasource
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageURLs.count
     }
@@ -147,6 +153,7 @@ class SelectPictureCollectionViewController: UIViewController,UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectCollectionCell", for: indexPath) as! SelectPictureCollectionViewCell
         let imageURL = imageURLs[indexPath.row]
+        collectionCell.imageView.image = nil
         configureCell(collectionCell, withImageURL: imageURL)
         return collectionCell
     }

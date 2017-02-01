@@ -7,11 +7,16 @@
 //
 
 import UIKit
+protocol PictureDetailViewControllerDelegate: class {
+    func deleteInPictureDetailVCPressed()
+}
 
 class PictureDetailViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var deleteButton: UIButton!
     var selectedImage: UIImage!
+    weak var delegate: PictureDetailViewControllerDelegate?
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +24,10 @@ class PictureDetailViewController: UIViewController {
 
     }
     
+    @IBAction func deletePressed(_ sender: Any) {
+        delegate?.deleteInPictureDetailVCPressed()
+        navigationController?.popViewController(animated: true)
+    }
     
 
 }

@@ -16,16 +16,19 @@ class TextEditViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var textViewScrollView: UIScrollView!
+    @IBOutlet weak var textFontItem: UIBarButtonItem!
+    @IBOutlet weak var textColorItem: UIBarButtonItem!
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     
-    var selectedImage: UIImage!
-    
+    var selectedImage: UIImage!    
     var xCoord = 5
     var yCoord = 5
-    let buttonWidth = 90
-    let buttonHeight = 90
+    let buttonWidth = 60
+    let buttonHeight = 60
     let gapBetweenButtons = 5
-    
+    var colorName = UIColor()
+    var fontName = String()
+
     var red: CGFloat = 0.0
     var green: CGFloat = 0.0
     var blue: CGFloat = 0.0
@@ -33,8 +36,6 @@ class TextEditViewController: UIViewController,UITextFieldDelegate {
     let colors:[(CGFloat,CGFloat,CGFloat)] = [(0,0,0),(105.0/255.0,105.0/255.0,105.0/255.0),(1.0,0,0),(0,0,1.0),(51.0/255.0,204.0/255.0,1.0),(102.0/255.0,204.0/255.0,0),(102.0/255.0,1.0,0),(160.0/255.0,82.0/255.0,45.0/255.0),(1.0,102.0/255.0,0),(1.0,1.0,0),(1.0,1.0,1.0)]
     
     let fontNames:[String] = ["Arial","Helvetica","Didot","Papyrus","Menlo","Baskerville","Verdana","Times New Roman","Copperplate","Courier New"]
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -50,11 +51,10 @@ class TextEditViewController: UIViewController,UITextFieldDelegate {
     }
     
     func setNavigationBar(){
-        self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.backgroundColor = UIColor(red: 250.0,green: 233.0,blue: 126.0,alpha: 1.0)
-        self.navigationItem.hidesBackButton = false
-        let share = UIBarButtonItem(title: "share", style: UIBarButtonItemStyle.plain, target: self, action: #selector(shareAction))
-        
+        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.backgroundColor = UIColor(red: 250.0,green: 233.0,blue: 126.0,alpha: 1.0)
+        navigationItem.hidesBackButton = false
+        let share = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareAction))        
         let save = UIBarButtonItem(title: "save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(saveAction))
         navigationItem.rightBarButtonItems = [save,share]
     }
@@ -108,7 +108,6 @@ class TextEditViewController: UIViewController,UITextFieldDelegate {
     }
     
     func createDefaultScrollView(){
-        
         textViewScrollView.contentSize = CGSize.zero
         xCoord = 5
         yCoord = 5
@@ -125,7 +124,6 @@ class TextEditViewController: UIViewController,UITextFieldDelegate {
             textFontBtn.layer.borderColor = UIColor.white.cgColor
             let fontName = fontNames[item] as String
             textFontBtn.titleLabel?.font = UIFont(name: fontName, size: 20)
-            print("\(textFontBtn.titleLabel?.font)")
             textFontBtn.setTitle("abc", for: .normal)
             textFontBtn.setTitleColor(UIColor(red: 212.0/255.0, green: 222.0/255.0,blue: 39.0/255.0,alpha:1.0), for: .normal)
             textFontBtn.backgroundColor = UIColor(red: 39.0/255.0, green: 53.0/255.0, blue: 121.0/255.0, alpha: 1.0)
@@ -160,7 +158,6 @@ class TextEditViewController: UIViewController,UITextFieldDelegate {
     
     func setTextFieldProperties(textField: UITextField,color: UIColor?, font: UIFont?){
         
-        let colorName:UIColor!
         if color == nil{
             let didSetColorAlready = UserDefaults.standard.bool(forKey: "Color")
             if didSetColorAlready{
@@ -173,10 +170,9 @@ class TextEditViewController: UIViewController,UITextFieldDelegate {
             }
         }
         else{
-            colorName = color
+            colorName = color!
         }
         
-        let fontName:String!
         if font == nil{
             let didSetFontAlready = UserDefaults.standard.bool(forKey: "FontName")
             if didSetFontAlready{
@@ -192,19 +188,19 @@ class TextEditViewController: UIViewController,UITextFieldDelegate {
             }
         }
         else{
-            fontName = font?.familyName
+            fontName = (font?.familyName)!
         }
         
         let textFieldAttributes:[String:Any] = [
             NSForegroundColorAttributeName:colorName,
-            NSStrokeColorAttributeName: UIColor.white,
+            NSStrokeColorAttributeName:colorName,
             NSFontAttributeName: UIFont(name: fontName, size: 40)!,
             NSStrokeWidthAttributeName: -2.0]
         textField.defaultTextAttributes = textFieldAttributes
     }
     
+    //Saves the Edittedimage
     func saveAction(){
-        
         let imageToSave = generateEdittedImage()
         let dataFromImage:Data! = UIImagePNGRepresentation(imageToSave)
         
@@ -212,16 +208,18 @@ class TextEditViewController: UIViewController,UITextFieldDelegate {
         stack.save()
     }
     
+    //Returns edittedImage
     func generateEdittedImage() -> UIImage{
-        
-        UIGraphicsBeginImageContext(imageToEdit.bounds.size)
-        imageToEdit.image?.draw(in: CGRect(x: 0, y: 0,
-                                           width: imageToEdit.frame.size.width, height: imageToEdit.frame.size.height))
-        let image = UIGraphicsGetImageFromCurrentImageContext()
+
+        titleLabel.isHidden = true
+        UIGraphicsBeginImageContext(imageToEdit.frame.size)
+        view.drawHierarchy(in: imageToEdit.frame, afterScreenUpdates: true)
+        let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-        
-        return image!
+        titleLabel.isHidden = false
+        return memedImage
     }
+    
     
     func shareAction() {
         

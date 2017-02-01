@@ -24,11 +24,11 @@ class SavedPhotosCollectionViewController: UICollectionViewController,NSFetchedR
     var fetchResultsController : NSFetchedResultsController<NSFetchRequestResult>? {
         didSet {
             fetchResultsController?.delegate = self
-//            let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "SavedPicture")
-//            fr.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true),NSSortDescriptor(key: "imageData", ascending: false)]
-//            
-//            // Create the FetchedResultsController
-//            fetchResultsController = NSFetchedResultsController(fetchRequest: fr, managedObjectContext: stack.context, sectionNameKeyPath: "humanReadableDate", cacheName: nil)
+            let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "SavedPicture")
+            fr.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true),NSSortDescriptor(key: "imageData", ascending: false)]
+            
+            // Create the FetchedResultsController
+            fetchResultsController = NSFetchedResultsController(fetchRequest: fr, managedObjectContext: stack.context, sectionNameKeyPath: nil, cacheName: nil)
             executeSearch()
         }
     }
@@ -37,7 +37,7 @@ class SavedPhotosCollectionViewController: UICollectionViewController,NSFetchedR
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isHidden = false
         savedPhotosCollection.delegate = self
         savedPhotosCollection.dataSource = self
 
@@ -54,6 +54,7 @@ class SavedPhotosCollectionViewController: UICollectionViewController,NSFetchedR
         let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "SavedPicture")
         fr.sortDescriptors = [NSSortDescriptor(key: "imageData", ascending: false),NSSortDescriptor(key: "creationDate", ascending: true)]
         fetchResultsController = NSFetchedResultsController(fetchRequest: fr, managedObjectContext: stack.context, sectionNameKeyPath: nil, cacheName: nil)
+        selectedIndices.removeAll()
     }
     
     func setUpFlowLayout(){
@@ -129,7 +130,8 @@ class SavedPhotosCollectionViewController: UICollectionViewController,NSFetchedR
             selectedIndices.append(indexPath)
         }
         let selectedImage = UIImage(data: savedPhoto.imageData as! Data)
-        self.showAlertWithAction(withSelectedImage: selectedImage!)
+        openPictureDetailVC(selectedImage: selectedImage!)
+//        self.showAlertWithAction(withSelectedImage: selectedImage!)
         
     }
     
@@ -141,28 +143,32 @@ class SavedPhotosCollectionViewController: UICollectionViewController,NSFetchedR
     }
     
     func deleteSelectedImages(){
-        if self.selectedIndices.isEmpty{
+       
+    if self.selectedIndices.isEmpty{
             self.deleteAllImages()
+    }
+    else{
+        var photos = [SavedPicture]()
+        
+        let ind = IndexPath()
+        for indexPath in selectedIndices{
+            photos.append(fetchResultsController?.object(at: indexPath) as! SavedPicture)
         }
-        else{
-            var photos = [SavedPicture]()
-            
-            for indexPath in self.selectedIndices{
-                photos.append(self.fetchResultsController?.object(at: indexPath) as! SavedPicture)
-            }
-            for photo in photos{
-                self.stack.context.delete(photo)
-                print("Deleted the coressponding photo")
-                self.stack.save()
-            }
-            getFetchResults()
-            savedPhotosCollection.reloadData()
+        for photo in photos{
+            stack.context.delete(photo)
+            print("Deleted the coressponding photo")
+            stack.save()
+        }
+        
+        getFetchResults()
+        savedPhotosCollection.reloadData()
         }
     }
     
     func openPictureDetailVC(selectedImage: UIImage){
         let picturDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "PictureDetailVC") as! PictureDetailViewController
         picturDetailVC.selectedImage = selectedImage
+        picturDetailVC.delegate = self
         self.navigationController?.pushViewController(picturDetailVC, animated: true)
     }
     
@@ -249,19 +255,23 @@ class SavedPhotosCollectionViewController: UICollectionViewController,NSFetchedR
     }
 }
 
-extension SavedPhotosCollectionViewController{
+extension SavedPhotosCollectionViewController: PictureDetailViewControllerDelegate{
     
-    func showAlertWithAction(withSelectedImage: UIImage){
-        DispatchQueue.main.async {
-            let alert = UIAlertController(title:"Pic Editor", message: "Do you want to delete this cell?", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style:.cancel, handler: {(action: UIAlertAction!) in
-                self.openPictureDetailVC(selectedImage: withSelectedImage)
-            }))
-            alert.addAction(UIAlertAction(title: "OK", style:.default, handler:{(action: UIAlertAction!) in
-                self.deleteSelectedImages()
-                
-            }))
-            self.present(alert, animated: true, completion: nil)
-        }
+//    func showAlertWithAction(withSelectedImage: UIImage){
+//        DispatchQueue.main.async {
+//            let alert = UIAlertController(title:"Pic Editor", message: "Do you want to delete this cell?", preferredStyle: UIAlertControllerStyle.alert)
+//            alert.addAction(UIAlertAction(title: "Cancel", style:.cancel, handler: {(action: UIAlertAction!) in
+//                self.openPictureDetailVC(selectedImage: withSelectedImage)
+//            }))
+//            alert.addAction(UIAlertAction(title: "OK", style:.default, handler:{(action: UIAlertAction!) in
+//                self.deleteSelectedImages()
+//                
+//            }))
+//            self.present(alert, animated: true, completion: nil)
+//        }
+//    }
+    
+    func deleteInPictureDetailVCPressed(){
+        deleteSelectedImages()
     }
 }

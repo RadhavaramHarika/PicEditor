@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E7398F731E3EE74E00E64B6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7398F721E3EE74E00E64B6A /* AppDelegate.swift */; };
-		E7398F751E3EE74E00E64B6A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7398F741E3EE74E00E64B6A /* ViewController.swift */; };
 		E7398F781E3EE74E00E64B6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7398F761E3EE74E00E64B6A /* Main.storyboard */; };
 		E7398F7A1E3EE74E00E64B6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7398F791E3EE74E00E64B6A /* Assets.xcassets */; };
 		E7398F7D1E3EE74E00E64B6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7398F7B1E3EE74E00E64B6A /* LaunchScreen.storyboard */; };
@@ -33,6 +32,7 @@
 		E7398FC71E3EFA8600E64B6A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7398FC61E3EFA8600E64B6A /* CoreDataStack.swift */; };
 		E7398FCA1E3EFAEA00E64B6A /* SavedPicture+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7398FC81E3EFAEA00E64B6A /* SavedPicture+CoreDataClass.swift */; };
 		E7398FCB1E3EFAEA00E64B6A /* SavedPicture+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7398FC91E3EFAEA00E64B6A /* SavedPicture+CoreDataProperties.swift */; };
+		E7398FCF1E3F61F700E64B6A /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = E7398FCE1E3F61F700E64B6A /* Readme.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +55,6 @@
 /* Begin PBXFileReference section */
 		E7398F6F1E3EE74E00E64B6A /* PicEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7398F721E3EE74E00E64B6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E7398F741E3EE74E00E64B6A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E7398F771E3EE74E00E64B6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E7398F791E3EE74E00E64B6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E7398F7C1E3EE74E00E64B6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -85,6 +84,7 @@
 		E7398FC61E3EFA8600E64B6A /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E7398FC81E3EFAEA00E64B6A /* SavedPicture+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SavedPicture+CoreDataClass.swift"; path = "../SavedPicture+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E7398FC91E3EFAEA00E64B6A /* SavedPicture+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SavedPicture+CoreDataProperties.swift"; path = "../SavedPicture+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E7398FCE1E3F61F700E64B6A /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +115,7 @@
 		E7398F661E3EE74E00E64B6A = {
 			isa = PBXGroup;
 			children = (
+				E7398FCE1E3F61F700E64B6A /* Readme.md */,
 				E7398F711E3EE74E00E64B6A /* PicEditor */,
 				E7398F861E3EE74E00E64B6A /* PicEditorTests */,
 				E7398F911E3EE74E00E64B6A /* PicEditorUITests */,
@@ -136,7 +137,6 @@
 			isa = PBXGroup;
 			children = (
 				E7398F721E3EE74E00E64B6A /* AppDelegate.swift */,
-				E7398F741E3EE74E00E64B6A /* ViewController.swift */,
 				E7398FC41E3EFA4700E64B6A /* View */,
 				E7398FB41E3EE96100E64B6A /* Modal */,
 				E7398FA01E3EE7DA00E64B6A /* MainViewController.swift */,
@@ -342,9 +342,9 @@
 			files = (
 				E7398FA71E3EE86600E64B6A /* DrawEditViewController.swift in Sources */,
 				E7398FBA1E3EEA0700E64B6A /* AlertController.swift in Sources */,
+				E7398FCF1E3F61F700E64B6A /* Readme.md in Sources */,
 				E7398FA11E3EE7DA00E64B6A /* MainViewController.swift in Sources */,
 				E7398FA31E3EE7F000E64B6A /* PickImageViewController.swift in Sources */,
-				E7398F751E3EE74E00E64B6A /* ViewController.swift in Sources */,
 				E7398FCB1E3EFAEA00E64B6A /* SavedPicture+CoreDataProperties.swift in Sources */,
 				E7398FC31E3EF4EE00E64B6A /* Model.xcdatamodeld in Sources */,
 				E7398F731E3EE74E00E64B6A /* AppDelegate.swift in Sources */,
@@ -605,6 +605,7 @@
 				E7398F991E3EE74E00E64B6A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E7398F9A1E3EE74E00E64B6A /* Build configuration list for PBXNativeTarget "PicEditorTests" */ = {
 			isa = XCConfigurationList;
@@ -613,6 +614,7 @@
 				E7398F9C1E3EE74E00E64B6A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E7398F9D1E3EE74E00E64B6A /* Build configuration list for PBXNativeTarget "PicEditorUITests" */ = {
 			isa = XCConfigurationList;
@@ -621,6 +623,7 @@
 				E7398F9F1E3EE74E00E64B6A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

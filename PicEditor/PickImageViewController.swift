@@ -14,6 +14,7 @@ class PickImageViewController: UIViewController,UIImagePickerControllerDelegate,
     @IBOutlet weak var albumButton: UIButton!
     @IBOutlet weak var photoNameTextField: UITextField!
     @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var loading: UIActivityIndicatorView!
     let alert = AlertController()
     var pickedImage: UIImage!
     var buttonTitle: String!
@@ -21,6 +22,7 @@ class PickImageViewController: UIViewController,UIImagePickerControllerDelegate,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNavigationBar()
+        loading.isHidden = true
         photoNameTextField.delegate = self
         setButtonProperties(cameraButton)
         setButtonProperties(albumButton)
@@ -33,8 +35,8 @@ class PickImageViewController: UIViewController,UIImagePickerControllerDelegate,
     }
     
     func setNavigationBar(){
-        self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.backgroundColor = UIColor.clear
+        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.backgroundColor = UIColor.clear
     }
     
     func pickAnImage(source: UIImagePickerControllerSourceType)
@@ -64,19 +66,29 @@ class PickImageViewController: UIViewController,UIImagePickerControllerDelegate,
     }
     
     @IBAction func searchPressed(_ sender: Any) {
-        
+        if (photoNameTextField.text?.isEmpty)!{
+            alert.displayAlertView(viewController: self, alertTitle: "Pic Editor", alertMessage: "Please enter any text")
+        }
+        else{
+        loading.isHidden = false
+        loading.startAnimating()
+        self.view.bringSubview(toFront: loading)
         if Reachability.isConnectedToNetwork(){
             Flickr.shareInstance().getPhotosWithPages(text: photoNameTextField.text!){(success, error) in
                 
                 if error == nil{
                     // open SelectCollectionView
                     DispatchQueue.main.async {
+                        self.loading.stopAnimating()
+                        self.loading.isHidden = true
                         self.openSelectionViewController()
                     }
                 }
                 else{
                     DispatchQueue.main.async {
                         //show alert
+                        self.loading.stopAnimating()
+                        self.loading.isHidden = true
                         self.alert.displayAlertView(viewController: self, alertTitle: "Pic Editor", alertMessage: (error?.localizedDescription)!)
                     }
                 }
@@ -84,8 +96,11 @@ class PickImageViewController: UIViewController,UIImagePickerControllerDelegate,
         }else{
             DispatchQueue.main.async {
                 //ShowAlert
+                self.loading.stopAnimating()
+                self.loading.isHidden = true
                 self.alert.displayAlertView(viewController: self, alertTitle:"No Network", alertMessage: "Make sur your device is connected to network")
             }
+        }
         }
     }
     
